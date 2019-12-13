@@ -50,9 +50,28 @@ class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {
         if (root == null) return false;
 
-        if (root.left == null && root.right == null && sum - root.val == 0) return true;
+        return dfs(root, sum);
+    }
 
-        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+    public boolean dfs(TreeNode root, int needNum) {
+        //get the leaf node
+        if (root.left == null && root.right == null)
+            return needNum == root.val;
+
+        // //didn't get the leaf, but root.val >= needNum`
+        // if (Math.abs(root.val) >= Math.abs(needNum))
+        //     return false;
+
+        //we try root.left, if null we back and try root.right
+        if (root.left == null)
+            return dfs(root.right, needNum-root.val);
+
+        //if root.right == null, try left
+        if (root.right == null)
+            return dfs(root.left, needNum-root.val);
+
+        return (dfs(root.left, needNum-root.val) || dfs(root.right, needNum-root.val));
+
     }
 }
 // @lc code=end
