@@ -35,29 +35,51 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-            ListNode dummyHead = new ListNode(0);
-            ListNode ans = dummyHead;
+        if (l1 == null) {
+            return l2;
+        }
+        else if (l2 == null) {
+            return l1;
+        }
+        
+        ListNode ans = null;
+        if (l1.val < l2.val) {
+            ans = l1;
+            ans.next = mergeTwoLists(l1.next, l2);
+        }
+        else {
+            ans = l2;
+            l2.next = mergeTwoLists(l1, l2.next);
+        }
 
-            while (l1 != null && l2 != null) {
-                if (l1.val < l2.val) {
-                    dummyHead.next = l1;
-                    l1 = l1.next;
-                    dummyHead = dummyHead.next;
-                }else {
-                    dummyHead.next = l2;
-                    l2 = l2.next;
-                    dummyHead = dummyHead.next;
-                }
-            }
+        return ans;
+        
+        //# 1 : iteration O(n)
+            // ListNode dummyHead = new ListNode(0);
+            // ListNode ans = dummyHead;
 
-            if (l1 == null)
-                dummyHead.next = l2;
-            else
-                dummyHead.next = l1;
+            // while (l1 != null && l2 != null) {
+            //     if (l1.val < l2.val) {
+            //         dummyHead.next = l1;
+            //         l1 = l1.next;
+            //         dummyHead = dummyHead.next;
+            //     }else {
+            //         dummyHead.next = l2;
+            //         l2 = l2.next;
+            //         dummyHead = dummyHead.next;
+            //     }
+            // }
 
-            return ans.next;
+            // if (l1 == null)
+            //     dummyHead.next = l2;
+            // else
+            //     dummyHead.next = l1;
+
+            // return ans.next;
 
     }
 }
 // @lc code=end
 
+// 1->3
+// 2->4

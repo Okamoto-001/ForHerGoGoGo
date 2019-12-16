@@ -39,25 +39,39 @@
 // @lc code=start
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int i = 0, j = 0;
-        while (j < n) {
-            if (i == m+j) {
-                while (j < n) {
-                    nums1[m+j] = nums2[j];
-                    j++;
-                }
-                return;
-            }
+        int index1 = m-1, index2 = n-1, indexMerge = m+n-1;
 
-            if (nums2[j] < nums1[i]) {
-                for (int k = m+j; k > i; k--) {
-                    nums1[k] = nums1[k-1];
-                }
-                nums1[i] = nums2[j];
-                i++; j++;
+        while (indexMerge >= 0) {
+            if (index1 < 0) {
+                nums1[indexMerge--] = nums2[index2--];
+            } else if (index2 < 0) {
+                nums1[indexMerge--] = nums1[index1--];
+            } else if (nums1[index1] > nums2[index2]) {
+                nums1[indexMerge--] = nums1[index1--];
+            } else {
+                nums1[indexMerge--] = nums2[index2--];
             }
-            else i++;
         }
+
+        // int i = 0, j = 0;
+        // while (j < n) {
+        //     if (i == m+j) {
+        //         while (j < n) {
+        //             nums1[m+j] = nums2[j];
+        //             j++;
+        //         }
+        //         return;
+        //     }
+
+        //     if (nums2[j] < nums1[i]) {
+        //         for (int k = m+j; k > i; k--) {
+        //             nums1[k] = nums1[k-1];
+        //         }
+        //         nums1[i] = nums2[j];
+        //         i++; j++;
+        //     }
+        //     else i++;
+        // }
     }
 }
 // @lc code=end
