@@ -47,18 +47,32 @@
  */
 class Solution {
     public int minDepth(TreeNode root) {
-        if (root == null) return 0;
+        if (root == null) {
+            return 0;
+        }
 
-        int minLeft = minDepth(root.left);
-        int minRight = minDepth(root.right);
+        if (root.left == null) {
+            return minDepth(root.right) + 1;
+        }
 
-        // leaf
-        if (minLeft == 0 || minRight == 0) return minLeft + minRight + 1;
+        if (root.right == null) {
+            return minDepth(root.left) + 1;
+        }
+
+        return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+
+        // if (root == null) return 0;
+
+        // int minLeft = minDepth(root.left);
+        // int minRight = minDepth(root.right);
+
+        // // leaf
+        // if (minLeft == 0 || minRight == 0) return minLeft + minRight + 1;
         
-        int min = (minLeft > minRight) ? minRight : minLeft;
+        // int min = (minLeft > minRight) ? minRight : minLeft;
 
-        // root
-        return min + 1;
+        // // root
+        // return min + 1;
     }
 }
 // @lc code=end
