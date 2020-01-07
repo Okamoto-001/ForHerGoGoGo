@@ -55,8 +55,12 @@ public:
         dp[0] = 1;
 
         for (int i = 1; i < dp.size(); i++) {
+            //20 only one form
+
+            //one digits
             dp[i] = (s[i-1] == '0') ? 0 : dp[i-1];
 
+            //two digits
             if (i > 1 && (s[i-2] == '1' || (s[i-2] == '2' && s[i-1] <= '6'))) {
                 dp[i] += dp[i-2];
             }
